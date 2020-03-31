@@ -34,3 +34,29 @@ console.log('processes and environments');
 // https://en.wikipedia.org/wiki/Systems_development_life_cycle#Environments
 // https://stackify.com/what-is-sdlc/
 
+
+
+
+// we can set environment variables in many ways
+// allowing us to get info into our code from the exeternal environment
+
+
+// --> just for the life of one command execution
+// by prefacing the node command with an env var declaration 
+// like so
+// $ MY_VAR_1="Hello" node processesAndEnvironments.js 
+console.log("\nhere is MY_VAR_1, set when node command was run");
+console.log(process.env.MY_VAR_1);
+
+// --> just for the life of the terminal window 
+// do this using the bash export command like so
+// $ export MY_VAR_2="This is var 2 exported shell"
+// then
+// $ node processesAndEnvironments.js
+// and you will see it in the terminal
+// (note that you won't see MY_VAR_1 tho, unless you explicitly add it)
+console.log("\n here is process.env.MY_VAR_2 exported in bash shell");
+console.log(process.env.MY_VAR_2);
+
+
+
