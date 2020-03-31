@@ -1,0 +1,28 @@
+{
+  "name": "blog-related-models",
+  "version": "1.0.0",
+  "description": "model relations, mongoose, express, REST, CRUD, mongo, MVC",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@git.generalassemb.ly:sei-chi-feb-2020/blog-related-models.git"
+  },
+  "keywords": [
+    "model",
+    "relations",
+    "mongoose",
+    "express",
+    "REST",
+    "CRUD",
+    "mongo",
+    "MVC"
+  ],
+  "author": "Reuben Ayres",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
