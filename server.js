@@ -3,6 +3,11 @@ const app = express()
 const PORT = 3000
 
 
+app.get('/', (req, res) => {
+  res.send('hello world')
+})
+
+
 app.listen(PORT, () => {
   // check this out
   // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date
