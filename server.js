@@ -6,10 +6,16 @@ const PORT = process.env.PORT
 // MIDDLEWARE
 app.use(express.static('public'))
 
+
+
 app.get('/', (req, res) => {
   res.render('home.ejs')
 })
 
+// a 404 route -- "*" is wildcard (or "glob") -- will match anything
+app.get('*', (req, res) => {
+  res.status(404).render('404.ejs')
+})
 
 app.listen(PORT, () => {
   // check this out
