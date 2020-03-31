@@ -58,5 +58,11 @@ console.log(process.env.MY_VAR_1);
 console.log("\n here is process.env.MY_VAR_2 exported in bash shell");
 console.log(process.env.MY_VAR_2);
 
+// https://www.npmjs.com/package/dotenv
 
+require('dotenv').config() // you must include this per the documentation
+
+
+console.log("\n here is process.env.MY_VAR_3 which was set using dotenv node module");
+console.log(process.env.MY_VAR_3);
 
