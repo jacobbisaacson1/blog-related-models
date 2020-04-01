@@ -4,17 +4,33 @@
 
   <form>
     <fieldset>
-      <label for="title">Title:</label>
-      <input 
-        id="title" 
-        type="text" 
-        name="title" 
-        placeholder="Enter article title" 
-      />
-    </fieldset>
-    <fieldset>
-      <label for="body">Article Text:</label>
-      <textarea id="body" placeholder="Enter article text here"></textarea>
+
+      <div>
+        <label for="author-select">Choose an author:</label>
+        <!-- https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select -->
+        <select name="author" id="author-select">
+          <option value="" disabled selected>(choose an author)</option>
+          <% authors.forEach((author) => { %>
+            <option value="<%= author.id %>"><%= author.name %></option>
+          <% }) %>
+        </select>        
+      </div>
+
+      <div>
+        <label for="title">Title:</label>
+        <input 
+          id="title" 
+          type="text" 
+          name="title" 
+          placeholder="Enter article title" 
+        />        
+      </div>
+
+      <div>
+        <label for="body">Article Text:</label>
+        <textarea id="body" name="body" placeholder="Enter article text here"></textarea>
+      </div>
+
     </fieldset>
     <button>Create Article</button>
   </form>
