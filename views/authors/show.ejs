@@ -2,12 +2,12 @@
 
   <h2><%= author.name %></h2>
 
-<div>
-	<% articles.forEach((article) => { %>
-		<p><a href="/articles/<%= article.id %>"><%= article.title %></a></p>
-	<% }) %>
-	
-</div>	
+	<ul>	
+		<% articles.forEach((article) => { %>
+			<li><a href="/articles/<%= article.id %>"><%= article.title %></a></li>
+		<% }) %>
+	</ul>
+
 
   <div>
     <a href="/authors/<%= author.id %>/edit">(Edit <%= author.name %>)</a>
