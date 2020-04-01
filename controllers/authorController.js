@@ -88,6 +88,25 @@ router.get('/:id/edit', (req, res, next) => {
 })
 
 
+// update: PUT /authors/:id (or PATCH /authors/:id)
+router.put('/:id', (req, res, next) => {
+  // shortcut -- we are just using req.body directly here
+  // this is quick and dirty, we may need to update it first in some cases
+  Author.findByIdAndUpdate(
+    req.params.id, 
+    req.body, 
+    {new: true},
+    (err, updatedAuthor) => {
+      if(err) next(err);
+      else {
+        res.redirect(`/authors/${updatedAuthor._id}`)
+      }   
+    }
+  )
+})
+
+
+
 // if you forget to export you will see:
 // "expected a middleware function but got a Object" -- why? 
 module.exports = router 
