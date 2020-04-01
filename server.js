@@ -3,12 +3,17 @@ const express = require('express')
 const app = express()
 const PORT = process.env.PORT
 
+
+// connect to db
+require('./db/db')
+
+
 // MIDDLEWARE
 app.use(express.static('public'))
 
 
 // CONTROLLERS
-const authorController = require('./controllers/authorController.js')
+const authorController = require('./controllers/authorController')
 // the following line means for all URLs starting with /authors, 
 // use the author controller, so 
 // note: Inside of author controller, the routes will NOT 
