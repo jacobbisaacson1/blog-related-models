@@ -7,6 +7,15 @@ const PORT = process.env.PORT
 app.use(express.static('public'))
 
 
+// CONTROLLERS
+const authorController = require('./controllers/authorController.js')
+// the following line means for all URLs starting with /authors, 
+// use the author controller, so 
+// note: Inside of author controller, the routes will NOT 
+// include '/authors' but they URLs will look the same to the client
+app.use('/authors', authorController)
+
+
 
 app.get('/', (req, res) => {
   res.render('home.ejs')
