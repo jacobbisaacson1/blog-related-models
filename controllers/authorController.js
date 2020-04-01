@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const Author = require('../models/author')
+const Article = require('../models/article.js')
 
 
 // NOTE! REMINDER! we don't need '/authors' in these URLS
@@ -8,7 +9,8 @@ const Author = require('../models/author')
 // because of how we linked it up in server.js
 // so we will just have the part of the URL that comes after 
 // /authors (even though client will send requests to the same 
-// URLs as before)
+// URLs as before) 
+
 
 
 // author index: GET /authors
@@ -26,7 +28,6 @@ router.get('/', (req, res, next) => {
       })
     }
   })
-
 })
 
 // author new route: GET /authors/new 
@@ -36,15 +37,24 @@ router.get('/new', (req, res) => {
 
 // author show route: GET /authors/:id -- info for ONE author
 router.get('/:id', (req, res, next) => {
-  Author.findById(req.params.id, (err, foundAuthor) => {
-    if(err) next(err);
-    else {
-      res.render('authors/show.ejs', {
-        author: foundAuthor
+  Author.findById(req.params.id, (error, foundAuthor) => {
+    if(error) {
+      next(error)
+    } else {
+      Article.find({author: req.params.id}, (error2, foundArticles) => {
+        if(error2) {
+          next(error2)
+        } else {  
+          res.render('authors/show.ejs', {
+            author: foundAuthor,
+            articles: foundArticles
+          })
+        }
       })
     }
   })
-}) 
+})
+
 
 // author create route: POST /authors
 router.post('/', (req, res, next) => {

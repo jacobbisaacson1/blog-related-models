@@ -1,7 +1,12 @@
 <%- include('../partials/header.ejs') %>
 
   <h2><%= author.name %></h2>
-  <h2><%= author.article %></h2>
+
+	<ul>	
+		<% articles.forEach((article) => { %>
+			<li><a href="/articles/<%= article.id %>"><%= article.title %></a></li>
+		<% }) %>
+	</ul>
 
 
   <div>
