@@ -1,0 +1,22 @@
+<%- include('../partials/header.ejs') %>
+
+  <h2>Add a new Article!😃</h2>
+
+  <form>
+    <fieldset>
+      <label for="title">Title:</label>
+      <input 
+        id="title" 
+        type="text" 
+        name="title" 
+        placeholder="Enter article title" 
+      />
+    </fieldset>
+    <fieldset>
+      <label for="body">Article Text:</label>
+      <textarea id="body" placeholder="Enter article text here"></textarea>
+    </fieldset>
+    <button>Create Article</button>
+  </form>
+
+<%- include('../partials/footer.ejs') %>

@@ -3,7 +3,7 @@ const router = express.Router()
 
 // article new route: GET /articles/new
 router.get('/new', (req, res) => {
-  res.send('article new route')
+  res.render('articles/new.ejs')
 })
 
 module.exports = router
