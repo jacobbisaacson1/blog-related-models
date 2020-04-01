@@ -30,7 +30,9 @@ router.get('/', (req, res, next) => {
     else {
       console.log("\nhere are the articles we found using .populate('author')");
       console.log(foundArticles);
-      res.send('check terminal')
+      res.render('articles/index.ejs', {
+        articles: foundArticles
+      })
     }
   })
 }) // index route
@@ -60,7 +62,7 @@ router.post('/', (req, res, next) => {
     else {
       // we will change this to redirect to index or show when we 
       // get those working in a minute
-      res.send(createdArticle)
+      res.redirect('/articles')
     }
   })
 })

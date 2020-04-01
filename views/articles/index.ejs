@@ -1,0 +1,23 @@
+<%- include('../partials/header.ejs') %>
+
+  <h2>Newsfeed: All the latest articles (Article index)</h2>
+
+  <ul>
+    <% articles.forEach((article) => { %>
+      <li>
+        <div>
+          <strong>
+            <%= article.title %>
+          </strong>
+        </div>
+        <div>
+          <small><%= article.posted.toLocaleString() %></small>         
+        </div>
+        <div>
+          (by: <%= article.author.name %>)
+        </div>
+      </li>
+    <% }) %>
+  </ul>
+
+<%- include('../partials/footer.ejs') %>
