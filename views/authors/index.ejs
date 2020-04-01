@@ -1,0 +1,13 @@
+<%- include('../partials/header.ejs') %>
+
+  <h2>Our wonderful authors</h2>
+
+  <ul>
+    <% authors.forEach(author => { %>
+      <li>
+        <%= author.name %>
+      </li>
+    <% }) %>
+  </ul>
+
+<%- include('../partials/footer.ejs') %>

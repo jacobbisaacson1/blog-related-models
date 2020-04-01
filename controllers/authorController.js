@@ -11,8 +11,23 @@ const Author = require('../models/author')
 // URLs as before)
 
 
-router.get('/', (req, res) => {
-  res.send('Authors controller working')
+// author index: GET /authors
+router.get('/', (req, res, next) => {
+
+  // get ALL the authors from the db
+  Author.find({}, (err, foundAuthors) => {
+    if(err) {
+      // pass the error to express to deal with
+      next(err)
+    } else {
+      console.log(foundAuthors);
+      // render them in a template
+      res.render('authors/index.ejs', {
+        authors: foundAuthors
+      })
+    }
+  })
+
 })
 
 // author new route: GET /authors/new 
@@ -32,7 +47,8 @@ router.post('/', (req, res, next) => {
     } else {
       console.log("\nhere's the author we created");
       console.log(createdAuthor);
-      res.send('you hit post route -- check terminal')
+      // send them to the index so they can see that the author was added
+      res.redirect('/authors')
     }
   })
 
