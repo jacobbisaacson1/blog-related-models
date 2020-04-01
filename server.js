@@ -22,6 +22,8 @@ const authorController = require('./controllers/authorController')
 // note: Inside of author controller, the routes will NOT 
 // include '/authors' but they URLs will look the same to the client
 app.use('/authors', authorController)
+const articleController = require('./controllers/articleController')
+app.use('/articles', articleController)
 
 
 
