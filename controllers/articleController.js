@@ -54,6 +54,19 @@ router.get('/new', (req, res, next) => {
   })
 })
 
+router.get('/:id', (req, res, next) => {
+  Article.findById(req.params.id).populate('author').exec((err, foundArticle) => {
+    if(err) next(err)
+      else {
+        console.log('this is found article');
+        console.log(foundArticle);
+        res.render('articles/show.ejs', {
+          article: foundArticle
+        })
+      }
+    })
+  })
+
 // article create route: POST /articles
 router.post('/', (req, res, next) => {
   // create the article

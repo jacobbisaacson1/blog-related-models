@@ -14,8 +14,10 @@
           <small><%= article.posted.toLocaleString() %></small>         
         </div>
         <div>
-          (by: <%= article.author.name %>)
+          by: <a href="/articles/<%= article.id %>"><%= article.author.name %></a>)
+          <!-- can we do :id to link to author's specic id? -->
         </div>
+
       </li>
     <% }) %>
   </ul>
