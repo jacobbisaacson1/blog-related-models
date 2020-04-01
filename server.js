@@ -1,6 +1,7 @@
 require('dotenv').config()
 const express = require('express')
 const app = express()
+const bodyParser = require('body-parser')
 const PORT = process.env.PORT
 
 
@@ -10,6 +11,7 @@ require('./db/db')
 
 // MIDDLEWARE
 app.use(express.static('public'))
+app.use(bodyParser.urlencoded({ extended: false })) // urlencoded is for forms
 
 
 // CONTROLLERS

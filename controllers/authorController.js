@@ -21,6 +21,7 @@ router.get('/new', (req, res) => {
 
 // author create route: POST /authors
 router.post('/', (req, res, next) => {
+  console.log("\nreq.body:", req.body);
   res.send('you hit post route')
 })
 
