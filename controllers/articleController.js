@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const Author = require('../models/author.js')
+const Article = require('../models/article.js')
 
 // article new route: GET /articles/new
 router.get('/new', (req, res, next) => {
@@ -14,6 +15,19 @@ router.get('/new', (req, res, next) => {
       res.render('articles/new.ejs', {
         authors: foundAuthors
       })
+    }
+  })
+})
+
+// article create route: POST /articles
+router.post('/', (req, res, next) => {
+  // create the article
+  Article.create(req.body, (err, createdArticle) => {
+    if(err) next(err);
+    else {
+      // we will change this to redirect to index or show when we 
+      // get those working in a minute
+      res.send(createdArticle)
     }
   })
 })
