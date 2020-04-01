@@ -1,5 +1,6 @@
 const express = require('express')
 const router = express.Router()
+const Author = require('../models/author')
 
 
 // NOTE! REMINDER! we don't need '/authors' in these URLS
@@ -21,8 +22,20 @@ router.get('/new', (req, res) => {
 
 // author create route: POST /authors
 router.post('/', (req, res, next) => {
-  console.log("\nreq.body:", req.body);
-  res.send('you hit post route')
+
+  // Add author to db
+  // we're just using req.body directly -- note that that means 
+  // we are giving up a chance to modify it by declaring an intermediate object
+  Author.create(req.body, (err, createdAuthor) => {
+    if(err) {
+      next(err)
+    } else {
+      console.log("\nhere's the author we created");
+      console.log(createdAuthor);
+      res.send('you hit post route -- check terminal')
+    }
+  })
+
 })
 
 
