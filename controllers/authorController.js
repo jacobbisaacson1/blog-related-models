@@ -15,6 +15,12 @@ router.get('/', (req, res) => {
 })
 
 
+// author new route: GET /authors/new 
+router.get('/new', (req, res) => {
+  res.render('authors/new.ejs')
+})
+
+
 
 // if you forget to export you will see:
 // "expected a middleware function but got a Object" -- why? 
