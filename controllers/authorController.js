@@ -63,6 +63,17 @@ router.post('/', (req, res, next) => {
 
 })
 
+// author destroy route: DELETE /authors/:id
+router.delete('/:id', (req, res, next) => {
+  Author.findByIdAndRemove(req.params.id, (err, deletedAuthor) => {
+    if(err) next(err);
+    else {
+      // so they can see that author was deleted
+      res.redirect('/authors')
+    }
+  })
+})
+
 
 // if you forget to export you will see:
 // "expected a middleware function but got a Object" -- why? 

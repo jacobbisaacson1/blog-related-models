@@ -2,6 +2,7 @@ require('dotenv').config()
 const express = require('express')
 const app = express()
 const bodyParser = require('body-parser')
+const methodOverride = require('method-override')
 const PORT = process.env.PORT
 
 
@@ -12,7 +13,7 @@ require('./db/db')
 // MIDDLEWARE
 app.use(express.static('public'))
 app.use(bodyParser.urlencoded({ extended: false })) // urlencoded is for forms
-
+app.use(methodOverride('_method'))
 
 // CONTROLLERS
 const authorController = require('./controllers/authorController')
