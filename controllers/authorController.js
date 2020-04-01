@@ -14,12 +14,15 @@ router.get('/', (req, res) => {
   res.send('Authors controller working')
 })
 
-
 // author new route: GET /authors/new 
 router.get('/new', (req, res) => {
   res.render('authors/new.ejs')
 })
 
+// author create route: POST /authors
+router.post('/', (req, res, next) => {
+  res.send('you hit post route')
+})
 
 
 // if you forget to export you will see:
