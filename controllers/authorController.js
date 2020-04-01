@@ -75,6 +75,19 @@ router.delete('/:id', (req, res, next) => {
 })
 
 
+// edit: GET /authors/:id/edit
+router.get('/:id/edit', (req, res, next) => {
+  Author.findById(req.params.id, (err, foundAuthor) => {
+    if(err) next(err);
+    else {
+      res.render('authors/edit.ejs', {
+        author: foundAuthor
+      })
+    }
+  })
+})
+
+
 // if you forget to export you will see:
 // "expected a middleware function but got a Object" -- why? 
 module.exports = router 
