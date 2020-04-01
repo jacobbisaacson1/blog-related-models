@@ -34,6 +34,18 @@ router.get('/new', (req, res) => {
   res.render('authors/new.ejs')
 })
 
+// author show route: GET /authors/:id -- info for ONE author
+router.get('/:id', (req, res, next) => {
+  Author.findById(req.params.id, (err, foundAuthor) => {
+    if(err) next(err);
+    else {
+      res.render('authors/show.ejs', {
+        author: foundAuthor
+      })
+    }
+  })
+}) 
+
 // author create route: POST /authors
 router.post('/', (req, res, next) => {
 
