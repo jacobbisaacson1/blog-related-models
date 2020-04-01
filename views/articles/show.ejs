@@ -2,9 +2,12 @@
 
   <h2><%= article.title %></h2>
   <small><%=article.posted.toLocaleString()%></small>
-  <p><a href="/authors/<%= article.author.id %>">
-  	<%= article.author.name %>
-  </a></p>
+  <p><a href="/authors/<%= article.author.id %>"><%= article.author.name %></a></p>
+  
+  <div>
+  	
   <p><%= article.body %></p>
+
+  </div>
 
 <%- include('../partials/footer.ejs') %>
