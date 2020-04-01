@@ -20,7 +20,6 @@ router.get('/', (req, res, next) => {
       // pass the error to express to deal with
       next(err)
     } else {
-      console.log(foundAuthors);
       // render them in a template
       res.render('authors/index.ejs', {
         authors: foundAuthors
@@ -45,8 +44,6 @@ router.post('/', (req, res, next) => {
     if(err) {
       next(err)
     } else {
-      console.log("\nhere's the author we created");
-      console.log(createdAuthor);
       // send them to the index so they can see that the author was added
       res.redirect('/authors')
     }
