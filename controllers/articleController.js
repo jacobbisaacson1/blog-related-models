@@ -4,68 +4,33 @@ const Author = require('../models/author.js')
 const Article = require('../models/article.js')
 
 
-// article index route: GET /articles
+// index -- GET /articles
 router.get('/', (req, res, next) => {
-  // get the articles
-  // Article.find({}, (err, foundArticles) => {
-  //   if(err) next(err);
-  //   else {
-  //     // observe: a regular .find() on Articles gives us 
-  //     // article documents that just contain the Author's id (ObjectId)
-  //     console.log("\nhere are the articles we found");
-  //     console.log(foundArticles);
-  //     res.send('check terminal')
-  //   }
-  // })
+  // // a regular .find() will only return the article's author's ID, not name
+  // using .popualte( <some path name that is a ref to an id> )
 
-  // .populate(some path name that is a ref to an ID)
-  // this modifies the find query 
-  // for this path, go get the actual document for this id
-  // include the actual document in the query results instead of just the id
-
-  // so in this case it means "give me actual Author documents"
-  // instead of just IDs of Author documents
-  Article.find({}).populate('author').exec((err, foundArticles) => {
-    if(err) next(err);
+  // tells the computer - for this path, include the document in query results 
+  // .exec() 
+  Article.find({}).populate('author').exec((error, foundArticles) => {
+    if(error) next(error)
     else {
-      console.log("\nhere are the articles we found using .populate('author')");
-      console.log(foundArticles);
       res.render('articles/index.ejs', {
         articles: foundArticles
-      })
-    }
-  })
-}) // index route
-
-
-// article new route: GET /articles/new
-router.get('/new', (req, res, next) => {
-  // we want to show a dropdown on the article new page
-  // to let user choose an author
-  // so we must query the db to get the authors
-  Author.find({}, (err, foundAuthors) => {
-    if(err) next(err);
-    else {
-      // be sure to make the authors available to the template!
-      res.render('articles/new.ejs', {
-        authors: foundAuthors
-      })
+      })    
     }
   })
 })
 
-router.get('/:id', (req, res, next) => {
-  Article.findById(req.params.id).populate('author').exec((err, foundArticle) => {
-    if(err) next(err)
-      else {
-        console.log('this is found article');
-        console.log(foundArticle);
-        res.render('articles/show.ejs', {
-          article: foundArticle
-        })
-      }
-    })
+// article new route - GET / articles/new
+router.get('/new', (req, res, next) => {
+  // want to show a dropdown menu of autors -- want to query the db to get authors -- require Author model
+  Author.find({}, (error, foundAuthors) => {
+    if(error) next(error)
+    else {
+      res.render('articles/new.ejs', { authors: foundAuthors })
+    }
   })
+})
 
 // article create route: POST /articles
 router.post('/', (req, res, next) => {
@@ -81,31 +46,55 @@ router.post('/', (req, res, next) => {
 })
 
 router.get('/:id', (req, res, next) => {
-  
-  Article.findById(req.params.id, (err, foundArticle) => {
+  Article.findById(req.params.id).populate("author").exec((error, foundArticle) => {
+    if(error) next(error)
+    else {
+      res.render('articles/show.ejs', { article: foundArticle })
+    }
+  })
+})
+
+router.get('/:id/edit', (req, res, next) => {
+  Article.findById(req.params.id).populate("author").exec((err, foundArticle) => {
     if(err) next(err)
     else {
-      res.render('show.ejs', {
-        article: foundArticle,
-        indexOfArticleToDelete: req.params.id
+      Author.find({}, (err2, foundAuthors) => {
+        if(err2) next(err2)
+        else {
+          res.render('articles/edit.ejs', { 
+            article: foundArticle,
+            authors: foundAuthors 
+          })
+        }
       })
     }
   })
 })
 
-router.delete('/:id', (req, res, next) => {
-  // remove the fruit from the array
-  // (later we will replace this with code that deletes from database)
-  const indexOfArticleToDelete = req.params.id
-  
-  Fruit.findByIdAndRemove(req.params.id, (err, result) => {
-    if(err) next(err)
+router.put('/:id', (req, res, next) => {
+  updatedArticle = {
+    author: req.body.author,
+    title: req.body.title,
+    body: req.body.body 
+  }
+  console.log(req.body);
+  Article.findByIdAndUpdate(req.params.id, updatedArticle, (error, updatedArticle) => {
+    if(error) next(error)
     else {
-      // redirect to index so user can see the fruit got deleted
       res.redirect('/articles')
+    }
+  })
+})
 
+router.delete('/:id', (req, res, next) => {
+  Article.findByIdAndRemove(req.params.id, (error, deletedAuthor) => {
+    if(error) next(error)
+    else {
+      res.redirect('/articles')
     }
   })
 })
 
 module.exports = router
+
+

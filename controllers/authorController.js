@@ -12,39 +12,32 @@ const Article = require('../models/article.js')
 // URLs as before) 
 
 
-
-// author index: GET /authors
 router.get('/', (req, res, next) => {
-
-  // get ALL the authors from the db
+  // get authors from db
   Author.find({}, (err, foundAuthors) => {
-    if(err) {
-      // pass the error to express to deal with
-      next(err)
-    } else {
-      // render them in a template
+    if(err) next(err)
+    else {
+      // render them into template
       res.render('authors/index.ejs', {
-        authors: foundAuthors
+        authors: foundAuthors,
       })
     }
   })
 })
 
-// author new route: GET /authors/new 
+
 router.get('/new', (req, res) => {
   res.render('authors/new.ejs')
 })
 
-// author show route: GET /authors/:id -- info for ONE author
+// 4 show route
 router.get('/:id', (req, res, next) => {
-  Author.findById(req.params.id, (error, foundAuthor) => {
-    if(error) {
-      next(error)
-    } else {
-      Article.find({author: req.params.id}, (error2, foundArticles) => {
-        if(error2) {
-          next(error2)
-        } else {  
+  Author.findById(req.params.id, (err, foundAuthor) => {
+    if(err) next(err)
+    else {
+      Article.find({author: req.params.id}, (err2, foundArticles) => {
+        if(err2) next(err2)
+        else {  
           res.render('authors/show.ejs', {
             author: foundAuthor,
             articles: foundArticles
@@ -55,64 +48,50 @@ router.get('/:id', (req, res, next) => {
   })
 })
 
-
-// author create route: POST /authors
 router.post('/', (req, res, next) => {
-
-  // Add author to db
-  // we're just using req.body directly -- note that that means 
-  // we are giving up a chance to modify it by declaring an intermediate object
+  // add author to db
   Author.create(req.body, (err, createdAuthor) => {
-    if(err) {
-      next(err)
-    } else {
-      // send them to the index so they can see that the author was added
+    if(err) next(err)
+    else {
       res.redirect('/authors')
     }
   })
-
 })
 
-// author destroy route: DELETE /authors/:id
+
 router.delete('/:id', (req, res, next) => {
   Author.findByIdAndRemove(req.params.id, (err, deletedAuthor) => {
-    if(err) next(err);
+    if(err) next(err)
     else {
-      // so they can see that author was deleted
-      res.redirect('/authors')
-    }
-  })
-})
-
-
-// edit: GET /authors/:id/edit
-router.get('/:id/edit', (req, res, next) => {
-  Author.findById(req.params.id, (err, foundAuthor) => {
-    if(err) next(err);
-    else {
-      res.render('authors/edit.ejs', {
-        author: foundAuthor
+      Article.remove({author: req.params.id}, (err, result) => {
+        if(err) next(err)
+        else {
+          console.log(result);
+          res.redirect('/authors')
+        }
       })
     }
   })
 })
 
+router.get('/:id/edit', (req, res) => {
+  Author.findById(req.params.id, (error, foundAuthor) => {
+    res.render('authors/edit.ejs', {author: foundAuthor})
+  })
+})
 
-// update: PUT /authors/:id (or PATCH /authors/:id)
+// 7 put route
 router.put('/:id', (req, res, next) => {
-  // shortcut -- we are just using req.body directly here
-  // this is quick and dirty, we may need to update it first in some cases
-  Author.findByIdAndUpdate(
-    req.params.id, 
-    req.body, 
-    {new: true},
-    (err, updatedAuthor) => {
-      if(err) next(err);
-      else {
-        res.redirect(`/authors/${updatedAuthor._id}`)
-      }   
+  const updatedAuthor = {
+    name: req.body.name
+  }
+  Author.findByIdAndUpdate(req.params.id, updatedAuthor, (err, updatedAuthor) => {
+    if(err) next(err)
+    else {
+      console.log(updatedAuthor);
+      res.redirect(`/authors/${updatedAuthor.id}`)
     }
-  )
+  })
 })
 
 

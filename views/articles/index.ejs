@@ -7,17 +7,17 @@
       <li>
         <div>
           <strong>
-            <%= article.title %>
+            <a href="/articles/<%= article.id %>"><%= article.title %></a>
           </strong>
         </div>
-        <div>
-          <small><%= article.posted.toLocaleString() %></small>         
+        <div>         
+          <small>
+            <%= article.posted.toLocaleString() %>
+          </small>
         </div>
         <div>
-          by: <a href="/articles/<%= article.id %>"><%= article.author.name %></a>)
-          <!-- can we do :id to link to author's specic id? -->
+          (by: <a href="/authors/<%= article.author.id %>"> <%= article.author.name %> </a>)
         </div>
-
       </li>
     <% }) %>
   </ul>
