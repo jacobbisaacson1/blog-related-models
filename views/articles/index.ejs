@@ -2,24 +2,21 @@
 
   <h2>Newsfeed: All the latest articles (Article index)</h2>
 
-  <ul>
-    <% articles.forEach((article) => { %>
-      <li>
-        <div>
-          <strong>
-            <a href="/articles/<%= article.id %>"><%= article.title %></a>
-          </strong>
-        </div>
-        <div>         
-          <small>
-            <%= article.posted.toLocaleString() %>
-          </small>
-        </div>
-        <div>
-          (by: <a href="/authors/<%= article.author.id %>"> <%= article.author.name %> </a>)
-        </div>
-      </li>
-    <% }) %>
-  </ul>
+<ul>
+  <% articles.forEach((article)=>{%>
+  <li>
+    <div>
+      <strong>
+        <a href="/articles/<%=article.id%>"><%= article.title%></a>
+      </strong>
+    </div>
+    <div>
+      <small><%= article.posted.toLocaleString()%></small>
+    </div>
+    <div>
+      (by: <%= article.posted %>)
+    </div>  
+  <% })%>
+</ul>
 
 <%- include('../partials/footer.ejs') %>

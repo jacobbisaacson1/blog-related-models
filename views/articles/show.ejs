@@ -1,17 +1,11 @@
 <%- include('../partials/header.ejs') %>
 
-  <h2> <%= article.title %> </h2>
-  <small><%=article.posted.toLocaleString()%></small>
-  <p><a href="/authors/<%= article.author.id %>"><%= article.author.name %></a></p>
-  
-  <div>
-  	
-  <p><%= article.body %></p>
-   		<form method="POST" action="/articles/<%= article.id %>?_method=DELETE">
-    <button> Delete <%= article.title %></button>
-  		</form>
+  <h2><%= article.title %> by <%= article.author.name%></h2>
+  <p><%= article.body%></p>
 
-  </div>
-
+<a href="/articles/<%= article.id %>/edit"> Edit </a></br>
+<form method="POST" action="/articles/<%= article.id %>?_method=DELETE">
+    <button>Delete</button>
+  </form>
 
 <%- include('../partials/footer.ejs') %>

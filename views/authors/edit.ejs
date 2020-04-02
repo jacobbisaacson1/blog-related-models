@@ -3,18 +3,17 @@
   <h2>Edit <%= author.name %></h2>
 
   <!-- this form should POST to /authors -->
-  <form method="POST" action="/authors/<%= author.id %>?_method=PUT">
+  <form method="POST" action="/authors/<%=author.id%>?_method=PUT">
     <fieldset>
-      <label for="name">Name:</label>
-      <input 
-        id="name" 
-        type="text" 
-        name="name" 
-        placeholder="Enter new Author name"
-        value="<%= author.name %>"
-      />
-    </fieldset> 
-    <button>Update Author</button>   
+      <label for="name"> Edit Name:</label>
+      <input
+       id='name'
+       type='text' 
+       name="name" 
+       value="<%=author.name%>"
+       />
+    </fieldset>
+    <button>Update!</button>
   </form>
 
 <%- include('../partials/footer.ejs') %>
