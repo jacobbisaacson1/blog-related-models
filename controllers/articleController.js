@@ -80,4 +80,32 @@ router.post('/', (req, res, next) => {
   })
 })
 
+router.get('/:id', (req, res, next) => {
+  
+  Article.findById(req.params.id, (err, foundArticle) => {
+    if(err) next(err)
+    else {
+      res.render('show.ejs', {
+        article: foundArticle,
+        indexOfArticleToDelete: req.params.id
+      })
+    }
+  })
+})
+
+router.delete('/:id', (req, res, next) => {
+  // remove the fruit from the array
+  // (later we will replace this with code that deletes from database)
+  const indexOfArticleToDelete = req.params.id
+  
+  Fruit.findByIdAndRemove(req.params.id, (err, result) => {
+    if(err) next(err)
+    else {
+      // redirect to index so user can see the fruit got deleted
+      res.redirect('/articles')
+
+    }
+  })
+})
+
 module.exports = router
