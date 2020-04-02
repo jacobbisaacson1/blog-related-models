@@ -1,0 +1,39 @@
+<%- include('../partials/header.ejs') %>
+
+  <h2>Edit <%= article.name %></h2>
+
+  <!-- this form should POST to /authors -->
+  <form method="POST" action="/articles/<%=article.id%>?_method=PUT">
+    <fieldset>
+      <label for="title"> Title:</label>
+      <input
+       id='title'
+       type='text' 
+       name="title" 
+       value="<%= article.name %>"
+       />
+    </fieldset>
+    <fieldset>
+      <label for="title"> Body:</label>
+      <input
+       id='body'
+       type='text' 
+       name="body" 
+       value="<%= article.body %>"
+       />
+    </fieldset>
+    <fieldset>
+      <label for="author"> Author:</label>
+      <input
+       id='author'
+       type='text' 
+       name="author" 
+       value="<%= article.author.name %>" 
+       />
+<!-- need a path for the updates  -->
+
+    </fieldset>
+    <button>Update!</button>
+  </form>
+
+<%- include('../partials/footer.ejs') %>

@@ -61,6 +61,7 @@ router.get('/:id/edit', (req, res, next) => {
       Author.find({}, (err2, foundAuthors) => {
         if(err2) next(err2)
         else {
+          console.log("something");
           res.render('articles/edit.ejs', { 
             article: foundArticle,
             authors: foundAuthors 
