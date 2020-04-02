@@ -61,10 +61,17 @@ router.get('/:id/edit', (req, res, next) => {
       Author.find({}, (err2, foundAuthors) => {
         if(err2) next(err2)
         else {
-          console.log("something");
-          res.render('articles/edit.ejs', { 
-            article: foundArticle,
-            authors: foundAuthors 
+          console.log("something213241");
+          Article.findByIdAndUpdate()
+            updatedArticle = {
+              author: req.body.author,
+              title: req.body.title,
+              body: req.body.body 
+
+            }
+            console.log(updatedArticle);
+            res.render('articles/edit.ejs', { // need to make a author edit ejs
+ 
           })
         }
       })
@@ -73,19 +80,35 @@ router.get('/:id/edit', (req, res, next) => {
 })
 
 router.put('/:id', (req, res, next) => {
-  updatedArticle = {
-    author: req.body.author,
-    title: req.body.title,
-    body: req.body.body 
-  }
-  console.log(req.body);
-  Article.findByIdAndUpdate(req.params.id, updatedArticle, (error, updatedArticle) => {
-    if(error) next(error)
+  Article.findByIdAndUpdate(req.params.id).populate("article").exec((err, updatedArticle) => {
+    if(err) next(err)
     else {
-      res.redirect('/articles')
+      console.log("article by id");
+      Article.find({}, (err, updatedArticle) => {
+        if(err) next(err)
+        else {
+          console.log("trying to update");
+        }
+      })
     }
   })
 })
+
+
+//   console.log('something again');
+//   Article.findByIdAndUpdate(
+//     req.params.id,
+
+
+//     req.body,
+//     {new: true},
+//     (err, updatedArticle) => {
+//     if(err) next(err)
+//     else {
+//       res.redirect(`/articles/${updatedArticle._id}`)
+//     }
+//   })
+// })
 
 router.delete('/:id', (req, res, next) => {
   Article.findByIdAndRemove(req.params.id, (error, deletedAuthor) => {

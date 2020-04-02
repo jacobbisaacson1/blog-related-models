@@ -9,11 +9,13 @@
   * **hint**: Accomplish this by adding a second query using Article model _inside the `else`_.  In that inner callback, use a different variable name for the error, since you're already inside an outer callback with an error parameter.
 
 
-* you should be able to delete the article (maybe from show page?) -- went backwards
+* you should be able to delete the article (maybe from show page?) -- 
 
 
 * user should be able to edit and update articles, including changing the author (after update, redirect back to show page?)
   * **hint** Nest an `Author.find()` inside of the `Article.find()` 
+
+
 * deleting an author should delete all the articles by that author -- do it manually in the author destroy ("destroy")
   * **hint** you will have to manually delete all the articles.  Could you do this with `.remove()` and `$in`?
 

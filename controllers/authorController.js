@@ -80,7 +80,6 @@ router.get('/:id/edit', (req, res) => {
   })
 })
 
-// 7 put route
 router.put('/:id', (req, res, next) => {
   const updatedAuthor = {
     name: req.body.name
@@ -93,7 +92,6 @@ router.put('/:id', (req, res, next) => {
     }
   })
 })
-
 
 
 // if you forget to export you will see:
