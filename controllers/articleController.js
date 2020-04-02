@@ -54,45 +54,65 @@ router.get('/:id', (req, res, next) => {
   })
 })
 
-router.get('/:id/edit', (req, res, next) => {
-  Article.findById(req.params.id).populate("author").exec((err, foundArticle) => {
-    if(err) next(err)
-    else {
-      Author.find({}, (err2, foundAuthors) => {
-        if(err2) next(err2)
-        else {
-          console.log("something213241");
-          Article.findByIdAndUpdate()
-            updatedArticle = {
-              author: req.body.author,
-              title: req.body.title,
-              body: req.body.body 
-
-            }
-            console.log(updatedArticle);
-            res.render('articles/edit.ejs', { // need to make a author edit ejs
- 
-          })
-        }
-      })
-    }
+router.get('/:id/edit', (req, res) => {
+  Article.findById(req.params.id, (error, foundArticle) => {
+    res.render('articles/edit.ejs', {article: foundArticle})
   })
 })
 
 router.put('/:id', (req, res, next) => {
-  Article.findByIdAndUpdate(req.params.id).populate("article").exec((err, updatedArticle) => {
+  const updatedArticle = {
+    author: req.body.author,
+    title: req.body.title,
+    body: req.body.body
+  }
+  Article.findByIdAndUpdate(req.params.id, updatedArticle, (err, updatedArticle) => {
     if(err) next(err)
     else {
-      console.log("article by id");
-      Article.find({}, (err, updatedArticle) => {
-        if(err) next(err)
-        else {
-          console.log("trying to update");
-        }
-      })
+      console.log(updatedArticle);
+      res.redirect(`/article/${updatedArticle.id}`)
     }
   })
 })
+
+// router.get('/:id/edit', (req, res, next) => {
+//   Article.findById(req.params.id).populate("article").exec((err, foundArticle) => {
+//     if(err) next(err)
+//     else {
+//       Author.find({}, (err2, foundAuthors) => {
+//         if(err2) next(err2)
+//         else {
+//           console.log("something213241");
+//           Article.findByIdAndUpdate()
+//             const updatedArticle = {
+//               author: req.body.author,
+//               title: req.body.title,
+//               body: req.body.body 
+//             }
+//             console.log(updatedArticle); //showing up as an object with undefineds
+//           //   res.render('articles/edit.ejs', { // need to make a author edit ejs
+ 
+//           // })
+//         }
+//       })
+//     }
+//   })
+// })
+
+// router.put('/:id', (req, res, next) => {
+//   Article.findByIdAndUpdate(req.params.id).populate("article").exec((err, updatedArticle) => {
+//     if(err) next(err)
+//     else {
+//       console.log("article by id");
+//       Article.find({}, (err, updatedArticle) => {
+//         if(err) next(err)
+//         else {
+//           console.log("trying to update");
+//         }
+//       })
+//     }
+//   })
+// })
 
 
 //   console.log('something again');
