@@ -60,20 +60,35 @@ router.get('/:id/edit', (req, res) => {
   })
 })
 
-router.put('/:id', (req, res, next) => {
-  const updatedArticle = {
-    author: req.body.author,
-    title: req.body.title,
-    body: req.body.body
-  }
-  Article.findByIdAndUpdate(req.params.id, updatedArticle, (err, updatedArticle) => {
-    if(err) next(err)
-    else {
-      console.log(updatedArticle);
-      res.redirect(`/article/${updatedArticle.id}`)
-    }
-  })
-})
+
+
+////commented out the next down to get back to functional site 
+
+
+// router.put('/:id', (req, res, next) => {
+//   const updatedArticle = {
+//     author: req.body.author,
+//     title: req.body.title,
+//     body: req.body.body
+//   }
+
+//   Article.findByIdAndUpdate(req.params.id).populate("article").exec((err, updatedArticle) => {
+//       Article.find({}, (err, updatedArticle) => {
+//         if(err) next(err)
+//         else {
+//           console.log(updatedArticle);
+//           res.redirect(`/article/${updatedArticle.id}`)
+//         }
+//     }
+//   })
+// })
+
+
+
+
+
+
+
 
 // router.get('/:id/edit', (req, res, next) => {
 //   Article.findById(req.params.id).populate("article").exec((err, foundArticle) => {
@@ -139,6 +154,13 @@ router.delete('/:id', (req, res, next) => {
   })
 })
 
+
+
+
 module.exports = router
+
+
+
+
 
 
